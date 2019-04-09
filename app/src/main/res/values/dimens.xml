@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="mediumPadding">8dp</dimen>
+    <dimen name="mediumMargin">8dp</dimen>
+    <dimen name="softElevation">1dp</dimen>
+    <dimen name="textSubtitle">16sp</dimen>
+    <dimen name="textOverline">12sp</dimen>
+    <dimen name="textBody">12sp</dimen>
+    <dimen name="softMargin">4dp</dimen>
+</resources>

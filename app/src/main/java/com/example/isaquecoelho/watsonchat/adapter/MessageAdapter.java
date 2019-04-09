@@ -1,0 +1,81 @@
+package com.example.isaquecoelho.watsonchat.adapter;
+
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.example.isaquecoelho.watsonchat.R;
+import com.example.isaquecoelho.watsonchat.model.Message;
+
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder> {
+
+    private List<Message> mMessageList;
+
+    public MessageAdapter(List<Message> mMessageList) {
+        this.mMessageList = mMessageList;
+    }
+
+    @NonNull
+    @Override
+    public MessageViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int position) {
+        View messageView;
+
+        switch (position){
+            case 0:
+                messageView = LayoutInflater.from(viewGroup.getContext())
+                        .inflate(R.layout.item_message_sended, viewGroup, false);
+                break;
+            case 1:
+                messageView = LayoutInflater.from(viewGroup.getContext())
+                        .inflate(R.layout.item_message_received, viewGroup, false);
+                break;
+            default:
+                messageView = LayoutInflater.from(viewGroup.getContext())
+                        .inflate(R.layout.item_message_sended, viewGroup, false);
+        }
+
+        return new MessageViewHolder(messageView);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull MessageViewHolder messageViewHolder, int position) {
+        Message messageItem = mMessageList.get(position);
+
+        messageViewHolder.textViewTitle.setText(messageItem.getTitle());
+        messageViewHolder.textViewMessage.setText(messageItem.getTitle());
+    }
+
+    @Override
+    public int getItemCount() {
+        return mMessageList.size();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        super.getItemViewType(position);
+
+        return mMessageList.get(position).isAtendent() ? 1 : 0;
+    }
+
+    class MessageViewHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.textview_title)
+        TextView textViewTitle;
+
+        @BindView(R.id.textview_message)
+        TextView textViewMessage;
+
+        MessageViewHolder(@NonNull View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+    }
+}

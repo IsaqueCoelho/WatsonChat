@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">WatsonChat</string>
+    <string name="msg_textinputlayout_message">message</string>
+</resources>
