@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.isaquecoelho.watsonchat.R;
-import com.example.isaquecoelho.watsonchat.model.Message;
+import com.example.isaquecoelho.watsonchat.model.MessageItem;
 
 import java.util.List;
 
@@ -17,9 +17,9 @@ import butterknife.ButterKnife;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder> {
 
-    private List<Message> mMessageList;
+    private List<MessageItem> mMessageList;
 
-    public MessageAdapter(List<Message> mMessageList) {
+    public MessageAdapter(List<MessageItem> mMessageList) {
         this.mMessageList = mMessageList;
     }
 
@@ -47,22 +47,27 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
     @Override
     public void onBindViewHolder(@NonNull MessageViewHolder messageViewHolder, int position) {
-        Message messageItem = mMessageList.get(position);
+        MessageItem messageItem = mMessageList.get(position);
 
         messageViewHolder.textViewTitle.setText(messageItem.getTitle());
-        messageViewHolder.textViewMessage.setText(messageItem.getTitle());
+        messageViewHolder.textViewMessage.setText(messageItem.getMessage());
     }
 
     @Override
     public int getItemCount() {
-        return mMessageList.size();
+        return ( mMessageList == null ) ? 0 : mMessageList.size();
     }
 
     @Override
     public int getItemViewType(int position) {
         super.getItemViewType(position);
 
-        return mMessageList.get(position).isAtendent() ? 1 : 0;
+        return mMessageList.get(position).isAssistent() ? 1 : 0;
+    }
+
+    public void updateMessageDataList(List<MessageItem> messageItemList){
+        this.mMessageList = messageItemList;
+        notifyDataSetChanged();
     }
 
     class MessageViewHolder extends RecyclerView.ViewHolder {
