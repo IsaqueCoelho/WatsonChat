@@ -11,20 +11,4 @@ public class DialogStack {
     @SerializedName("state")
     @Expose
     private String state;
-
-    public String getDialogNode() {
-        return dialogNode;
-    }
-
-    public void setDialogNode(String dialogNode) {
-        this.dialogNode = dialogNode;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
 }

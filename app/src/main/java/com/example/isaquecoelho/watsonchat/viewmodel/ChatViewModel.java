@@ -28,9 +28,6 @@ public class ChatViewModel extends ViewModel {
     private MutableLiveData<List<MessageItem>> messageData = new MutableLiveData<>();
     private static Context mMessageContext = new Context();
 
-
-    private Retrofit mRetrofit;
-    private RequestUtils mrRequestUtils;
     private Call<Message> mRequestMessage;
 
     private Message mMessage = new Message();
@@ -41,17 +38,19 @@ public class ChatViewModel extends ViewModel {
     }
 
     private void settingRequest(){
-        mRetrofit = new Retrofit.Builder()
+        Retrofit mRetrofit = new Retrofit.Builder()
                 .baseUrl(RequestUtils.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        mrRequestUtils = mRetrofit.create(RequestUtils.class);
+        RequestUtils mrRequestUtils = mRetrofit.create(RequestUtils.class);
         mRequestMessage = mrRequestUtils.messageData(mMessage);
     }
 
     private void settingMessage(String messageText){
-        mMessage.setInput(new Input(messageText));
-        mMessage.setContext(mMessageContext);
+        if(messageText != null){
+            mMessage.setInput(new Input(messageText));
+            mMessage.setContext(mMessageContext);
+        }
     }
 
     public void requestMessage(final String messageInputText){
@@ -64,18 +63,23 @@ public class ChatViewModel extends ViewModel {
         mRequestMessage.enqueue(new Callback<Message>() {
             @Override
             public void onResponse(Call<Message> call, Response<Message> response) {
-                Message message = response.body();
-                mMessageContext = message.getContext();
 
-                if(messageData.getValue() != null){
-                    messageList.add(new MessageItem("Você", message.getInput().getText(), false));
+                if(!response.isSuccessful()){
+                    Log.e(LOG_TAG, "error: " + response.raw());
+                } else {
+                    Message message = response.body();
+                    mMessageContext = message.getContext();
+
+                    if(messageData.getValue() != null){
+                        messageList.add(new MessageItem("Você", message.getInput().getText(), false));
+                    }
+
+                    for (int countResponse = 0; countResponse < message.getOutput().getText().size(); countResponse++) {
+                        messageList.add(new MessageItem("Assistente", message.getOutput().getText().get(countResponse), true));
+                    }
+
+                    messageData.postValue(messageList);
                 }
-
-                for (int countResponse = 0; countResponse < message.getOutput().getText().size(); countResponse++) {
-                    messageList.add(new MessageItem("Assistente", message.getOutput().getText().get(countResponse), true));
-                }
-
-                messageData.postValue(messageList);
             }
 
             @Override

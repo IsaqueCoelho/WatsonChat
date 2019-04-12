@@ -12,9 +12,9 @@ public interface RequestUtils {
     String BASE_URL = "https://gateway.watsonplatform.net/assistant/api/v1/";
     String VERSION = "?version=2019-02-28";
     String METHOD_MESSAGE = "/message";
-    String WORKSPACE = "workspaces/8d567f97-bc61-4b68-8216-be7380aac615";
+    String WORKSPACE = "workspaces/{workspace_id}";
 
-    String AUTHORIZATION = "autho";
+    String AUTHORIZATION = "base64{apikey:token}";
 
     @Headers({
             "Content-Type: application/json",

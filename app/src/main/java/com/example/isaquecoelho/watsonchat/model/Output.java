@@ -14,8 +14,4 @@ public class Output {
         return text;
     }
 
-    public void setText(List<String> text) {
-        this.text = text;
-    }
-
 }

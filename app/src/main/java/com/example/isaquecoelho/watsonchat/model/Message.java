@@ -19,14 +19,6 @@ public class Message {
     @Expose
     private Context context;
 
-    public List<Intent> getIntents() {
-        return intents;
-    }
-
-    public void setIntents(List<Intent> intents) {
-        this.intents = intents;
-    }
-
     public Input getInput() {
         return input;
     }
@@ -37,10 +29,6 @@ public class Message {
 
     public Output getOutput() {
         return output;
-    }
-
-    public void setOutput(Output output) {
-        this.output = output;
     }
 
     public Context getContext() {

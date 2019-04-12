@@ -28,7 +28,6 @@ import butterknife.ButterKnife;
 
 public class ChatFragment extends Fragment {
 
-    private static final String LOG_TAG = "ChatFragment";
     @BindView(R.id.recyclerview_chat)
     RecyclerView recyclerViewChat;
 
